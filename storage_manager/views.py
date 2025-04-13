@@ -19,35 +19,29 @@ def manager(request):
     return render(request, 'pages/manager.html', {'form_storage': StorageForm()})
 
 
-
-def register_user(request):
-    if request.method == 'POST':
-        form = ClienteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login/')
-            
-        else:
-            print(form.errors)  # Mostra os erros do form
-
-    return render(request, 'pages/register_user.html', {'form_register': ClienteForm()})
-
-
 from django.contrib.auth import authenticate, login, logout
 
+def login_user(request):
+    error = ''
 
-def login_user (request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            
-            return render(request,'pages/login_user.html')
-            
+            usuario = form.cleaned_data['usuario']
+            senha = form.cleaned_data['senha']
+
+            if Cliente.objects.filter(usuario=usuario, senha=senha).exists():
+                return redirect('manager/')  # substitui pelo nome da página de destino
+            else:
+                error = 'Usuário ou senha inválidos.'
+                return render(request, 'pages/login_user.html', {'form_login': form, 'error': error})
+
         else:
-            print(form.errors)  # Mostra os erros do form
+            print(form.errors)
 
-    return render(request, 'pages/login_user.html', {'form_login': LoginForm()})
-
-
-
+    
+    return render(request, 'pages/login_user.html', {
+        'form_login': LoginForm(),
+        'erro': error
+    })
 

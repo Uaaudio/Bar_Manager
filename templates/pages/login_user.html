@@ -8,10 +8,13 @@
     <link rel="stylesheet" href= "{% static 'css/style.css' %}">
 </head>
 <body>
+    
+        <h1>Login</h1>
+    
         <form method="POST">
             {% csrf_token %}
-            {% if erro %}
-                <p style="color:red;">{{ erro }}</p>
+            {% if error %}
+                <p style="color:red;">{{ error }}</p>
             {% endif %}
             {{ form_login.as_p }}
             <button type="submit">Entrar</button>
