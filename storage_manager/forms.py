@@ -14,3 +14,9 @@ class ClienteForm(forms.ModelForm):
         model = Cliente
         fields = '__all__'
         
+        
+class LoginForm(forms.ModelForm):
+    
+    class Meta:
+        model = Cliente
+        fields = '__all__'

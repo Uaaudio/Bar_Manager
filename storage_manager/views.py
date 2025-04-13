@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import *
 
@@ -25,11 +25,29 @@ def register_user(request):
         form = ClienteForm(request.POST)
         if form.is_valid():
             form.save()
-            print('USUÁRIO SALVO COM SUCESSO!')
+            return redirect('login/')
             
         else:
             print(form.errors)  # Mostra os erros do form
 
-    return render(request, 'pages/register_user.html', {'form_login': ClienteForm()})
+    return render(request, 'pages/register_user.html', {'form_register': ClienteForm()})
+
+
+from django.contrib.auth import authenticate, login, logout
+
+
+def login_user (request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            
+            return render(request,'pages/login_user.html')
+            
+        else:
+            print(form.errors)  # Mostra os erros do form
+
+    return render(request, 'pages/login_user.html', {'form_login': LoginForm()})
+
+
 
 
