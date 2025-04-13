@@ -8,13 +8,10 @@
     <link rel="stylesheet" href= "{% static 'css/style.css' %}">
 </head>
 <body>
-    <center>
     <form method="POST">
         {% csrf_token %}
         {{ form_register.as_p }}
         <button type="submit">Salvar</button>
     </form>
-    </center>
-    
 </body>
 </html>

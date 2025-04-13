@@ -8,7 +8,6 @@
     <link rel="stylesheet" href= "{% static 'css/style.css' %}">
 </head>
 <body>
-    <center>
         <form method="POST">
             {% csrf_token %}
             {% if erro %}
@@ -17,7 +16,5 @@
             {{ form_login.as_p }}
             <button type="submit">Entrar</button>
         </form>
-    </center>
-    
 </body>
 </html>
